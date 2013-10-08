@@ -177,6 +177,10 @@ module Fitgem
       request_token(opts)
     end
 
+      def get(path, headers={})
+        extract_response_body raw_get(path, headers)
+      end
+
     private
 
       def consumer
@@ -190,9 +194,6 @@ module Fitgem
         @access_token ||= OAuth::AccessToken.new(consumer, @token, @secret)
       end
 
-      def get(path, headers={})
-        extract_response_body raw_get(path, headers)
-      end
 
       def raw_get(path, headers={})
         headers.merge!("User-Agent" => "fitgem gem v#{Fitgem::VERSION}", "Accept-Language" => @api_unit_system)
